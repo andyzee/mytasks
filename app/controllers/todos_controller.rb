@@ -2,8 +2,12 @@ class TodosController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    @project = Project.find(params[:project_id])
-    if !@project
+    if params[:project_id]
+      @project = Project.find(params[:project_id])
+    elsif params[:project_title]
+      @project = Project.create(title: params[:project_title])
+
+    unless @project
       render json: { error: "Project not found"}, status: 422
     end
 
