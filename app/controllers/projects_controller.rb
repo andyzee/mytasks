@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
   def index
-    result = {
-      message: "ok"
-    }
-    render json: result
+    @projects = Project.includes(:todos).all
+
+    render json: @projects, include: [
+      todos: {except: [:project_id]}
+    ]
   end
 end

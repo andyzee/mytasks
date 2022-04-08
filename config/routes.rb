@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  get 'projects', to: 'projects#index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  # resources :projects, only: [:index] do
+  #   resources :todos, only: [:update]
+  # end
+  
+  # resources :todos, only: [:create]
   # root "articles#index"
+  get '/projects', to: 'projects#index'
+  post '/todos', to: 'todos#create'
+  patch '/projects/:project_id/todos/:id', to: 'todos#update'
 end
