@@ -19,11 +19,9 @@ class TodosController < ApplicationController
       @todo = @project.todos.new(todo_params)
       
       if @todo.save
-        @projects = Project.includes(:todos).all
-  
-        render json: @projects, include: [
-          todos: {except: [:project_id]}
-        ], status: 201
+        render json: @todo, include: [
+          project: {except: [:todos]}
+        ], except: [:project_id], status: 201
       else
         render json: { error: "Unable to create Todo"}, status: 400
       end
