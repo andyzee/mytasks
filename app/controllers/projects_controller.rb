@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @projects = Project.includes(:todos).all
+    @projects = Project.includes(:todos).order(:id).all
 
     render json: @projects, include: [
       todos: {except: [:project_id]}
